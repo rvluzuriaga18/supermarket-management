@@ -7,7 +7,7 @@ using SupermarketMgmt.CoreBusiness;
 using SupermarketMgmt.UseCases.DataStorePluginInterfaces;
 using SupermarketMgmt.UseCases.UseCaseInterfaces;
 
-namespace SupermarketMgmt.UseCases
+namespace SupermarketMgmt.UseCases.CategoriesUseCases
 {
     public class AddCategoryUseCase : IAddCategoryUseCase
     {

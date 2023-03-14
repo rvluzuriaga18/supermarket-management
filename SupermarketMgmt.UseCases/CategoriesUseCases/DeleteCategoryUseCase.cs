@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SupermarketMgmt.CoreBusiness;
 using SupermarketMgmt.UseCases.DataStorePluginInterfaces;
 using SupermarketMgmt.UseCases.UseCaseInterfaces;
 
-namespace SupermarketMgmt.UseCases
+namespace SupermarketMgmt.UseCases.CategoriesUseCases
 {
-    public class EditCategoryUseCase : IEditCategoryUseCase
+    public class DeleteCategoryUseCase : IDeleteCategoryUseCase
     {
         private readonly ICategoryRepository categoryRepository;
-        public EditCategoryUseCase(ICategoryRepository categoryRepository)
+
+        public DeleteCategoryUseCase(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }
-
-        public void Execute(Category category)
+        public void Delete(int categoryId)
         {
-            categoryRepository.UpdateCategory(category);
+            categoryRepository.DeleteCategory(categoryId);
         }
     }
 }
