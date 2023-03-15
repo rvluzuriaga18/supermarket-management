@@ -54,7 +54,7 @@
 
     private void DeleteCategory(int categoryId)
     {
-        DeleteCategoryUseCase.Delete(categoryId);
+        DeleteCategoryUseCase.Execute(categoryId);
         LoadCategories();
     }
 
