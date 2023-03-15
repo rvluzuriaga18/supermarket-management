@@ -1,10 +1,12 @@
-﻿@page "/addproduct"
+﻿@page "/editproduct/{productId}"
 
 @inject NavigationManager NavigationManager
 @inject UseCases.UseCaseInterfaces.IAddProductUseCase AddProductUseCase
+@inject UseCases.UseCaseInterfaces.IGetProductByIdUseCase GetProductByIdUseCase
+@inject UseCases.UseCaseInterfaces.IEditProductUseCase EditProductUseCase
 @inject UseCases.UseCaseInterfaces.IViewCategoriesUseCase ViewCategoriesUseCase
 
-<h3>Add Product</h3>
+<h3>Edit Product</h3>
 
 @if (product != null)
 {
@@ -41,19 +43,40 @@
 }
 
 @code {
+    [Parameter]
+    public string ProductId { get; set; }
+
     private Product product;
     private IEnumerable<Category> categories;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        product = new Product();
         categories = ViewCategoriesUseCase.Execute();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (int.TryParse(this.ProductId, out int iProductId))
+        {
+            var prod = GetProductByIdUseCase.Execute(iProductId);
+            this.product = new Product 
+            { 
+                ProductId = prod.ProductId,
+                Name = prod.Name,
+                CategoryId = prod.CategoryId,
+                Price = prod.Price,
+                Quantity = prod.Quantity
+            };
+
+        }
     }
 
     private void OnValidSubmit()
     {
-        AddProductUseCase.Execute(product);
+        EditProductUseCase.Execute(this.product);
         NavigationManager.NavigateTo("/products");
     }
 
