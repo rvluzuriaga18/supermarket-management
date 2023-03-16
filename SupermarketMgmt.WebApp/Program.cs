@@ -6,6 +6,7 @@ using SupermarketMgmt.UseCases.DataStorePluginInterfaces;
 using SupermarketMgmt.UseCases.UseCaseInterfaces;
 using SupermarketMgmt.UseCases.CategoriesUseCases;
 using SupermarketMgmt.UseCases.ProductUseCases;
+using SupermarketMgmt.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,7 @@ builder.Services.AddTransient<IAddProductUseCase, AddProductUseCase>();
 builder.Services.AddTransient<IEditProductUseCase, EditProductUseCase>();
 builder.Services.AddTransient<IGetProductByIdUseCase, GetProductByIdUseCase>();
 builder.Services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
+builder.Services.AddTransient<IViewProductsByCategoryId, ViewProductsByCategoryId>();
 
 var app = builder.Build();
 
