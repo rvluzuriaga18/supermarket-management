@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupermarketMgmt.UseCases
+namespace SupermarketMgmt.UseCases.ProductUseCases
 {
     public class AddProductUseCase : IAddProductUseCase
     {

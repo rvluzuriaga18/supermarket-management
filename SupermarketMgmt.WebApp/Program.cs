@@ -5,7 +5,7 @@ using Plugins.DataStore.InMemory;
 using SupermarketMgmt.UseCases.DataStorePluginInterfaces;
 using SupermarketMgmt.UseCases.UseCaseInterfaces;
 using SupermarketMgmt.UseCases.CategoriesUseCases;
-using SupermarketMgmt.UseCases;
+using SupermarketMgmt.UseCases.ProductUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
