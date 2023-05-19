@@ -1,5 +1,5 @@
 ﻿@inject UseCases.UseCaseInterfaces.IViewCategoriesUseCase ViewCategoriesUseCase
-@inject UseCases.IViewProductsByCategoryId ViewProductsByCategoryId
+@inject UseCases.UseCaseInterfaces.IViewProductsByCategoryId ViewProductsByCategoryId
 
 <div class="form-group">
     <label for="category">Category</label>
@@ -52,6 +52,8 @@
         {
             selectedCategoryId = value;
             productsInCategory = ViewProductsByCategoryId.Execute(value);
+            OnSelectProduct(null);
+            StateHasChanged();
         }
     }
 
@@ -65,7 +67,8 @@
 
     private void OnSelectProduct(Product product)
     {
-        selectedProductId = product.ProductId;
         OnProductSelected.InvokeAsync(product);
+        if (product != null) selectedProductId = product.ProductId;
+
     }
 }

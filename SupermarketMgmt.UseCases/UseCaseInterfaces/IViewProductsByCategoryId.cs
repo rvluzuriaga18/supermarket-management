@@ -1,6 +1,6 @@
 ﻿using SupermarketMgmt.CoreBusiness;
 
-namespace SupermarketMgmt.UseCases
+namespace SupermarketMgmt.UseCases.UseCaseInterfaces
 {
     public interface IViewProductsByCategoryId
     {

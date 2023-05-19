@@ -1,11 +1,17 @@
 ﻿@inject UseCases.UseCaseInterfaces.IGetProductByIdUseCase GetProductByIdUseCase
+@inject UseCases.UseCaseInterfaces.ISellProductUseCase SellProductUseCase
 
 @if (productToSell != null)
 {
-    <EditForm Model="productToSell" OnInvalidSubmit="SellProduct">
+    <EditForm Model="productToSell" OnValidSubmit="SellProduct">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
 
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">@errorMessage</div>
+            <br />
+        }
         <div class="form-group">
             <label for="name">Product Name</label>
             <input type="text" id="name" readonly value="@productToSell.Name" class="form-control" />
@@ -18,12 +24,9 @@
             <label for="qty">Quantity</label>
             <InputNumber id="qty" @bind-Value="@productToSell.Quantity"  class="form-control" />
         </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Sell</button>
     </EditForm>
-
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <div class="alert alert-danger">@errorMessage</div>
-    }
 }
 
 @code {
@@ -40,7 +43,7 @@
     {
         base.OnParametersSet();
 
-        if(SelectedProduct != null)
+        if (SelectedProduct != null)
         {
             productToSell = new Product()
             {
@@ -51,16 +54,25 @@
                 Quantity = 0
             };
         }
+        else
+        {
+            productToSell = null;
+        }
     }
 
     public void SellProduct()
     {
         var product = GetProductByIdUseCase.Execute(productToSell.ProductId);
 
-        if (product.Quantity >= productToSell.Quantity)
+        if (productToSell.Quantity <= 0)
+        {
+            errorMessage = "The quantity has to be greater than zero.";
+        }
+        else if (product.Quantity >= productToSell.Quantity)
         {
             OnProductSold.InvokeAsync(productToSell);
             errorMessage = string.Empty;
+            SellProductUseCase.Execute(productToSell.ProductId, productToSell.Quantity.Value);
         }
         else
         {
